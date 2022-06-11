@@ -1,0 +1,29 @@
+{
+    "kdmod1":{
+        "permanente":0.7,
+        "longa duracao":0.8,
+        "média duração":0.9,
+        "curta duração":1.0,
+        "instantânea":1.1
+    },
+
+    "kmod2":{
+        "ur<75":1,
+        "75<ur<85":0.8,
+        "bambu saturado": 0.6
+    },
+
+    "kmod4":{
+
+    },
+    
+    "kmod3":0.8,
+
+    "ym":{
+        "fc0k":2,
+        "ft0k":1.8,
+        "fv0k":2,
+        "ft90k":2,
+        "fMk":1.8
+    }
+}
