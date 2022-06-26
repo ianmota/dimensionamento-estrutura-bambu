@@ -28,3 +28,15 @@ class colmoDeBambu():
         else:
             return("A barra não pode ser tratada como prismática, 65*D > L")
         
+    def Espessura(self) -> float:
+        
+        t = median([self.e1.espessuraMedia(),self.e2.espessuraMedia()])
+        if(65*self.DiametroExterno() <= self.L):
+            return(t)
+        
+        else:
+            return("A barra não pode ser tratada como prismática, 65*D > L")
+        
+    def DiametroInterno(self) -> float:
+        d = self.DiametroExterno() - 2*self.Espessura()
+        
