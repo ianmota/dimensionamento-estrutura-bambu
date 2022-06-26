@@ -18,13 +18,9 @@ def tensaoCalculo(kmod,fcok):
     tensao = kmod*fcok/ym
     return(tensao)
     
-def resistenciaTracao(fcok):
-    rt = 1.3*fcok
-    return(rt)
 
-def resistenciaCortante(fcok):
-    rc = 0.15*fcok
-    return(rc)
+
+
 
 def coeficienteResistencia(kmod1,kmod2,kmod3,kmod4):
     kmod = kmod1*kmod2*kmod3*kmod4
