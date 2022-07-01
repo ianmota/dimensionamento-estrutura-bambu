@@ -1,11 +1,13 @@
 from statistics import median
 
 class Geometria():
-    def __init__(self,d1:float,d2:float,t1:float,t2:float) -> None:
+    def __init__(self,id:int,d1:float,d2:float,t1:float,t2:float,unidade:str) -> None:
+        self.id = id
         self.diametroMenor = d1
         self.diametroMaior = d2
         self.espessuraMenor = t1
         self.espessuraMaior = t2
+        self.un = unidade
         
     def __repr__(self) -> dict:
         pass
