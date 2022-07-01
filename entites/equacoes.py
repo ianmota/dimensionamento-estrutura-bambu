@@ -18,10 +18,6 @@ def tensaoCalculo(kmod,fcok):
     tensao = kmod*fcok/ym
     return(tensao)
     
-
-
-
-
 def coeficienteResistencia(kmod1,kmod2,kmod3,kmod4):
     kmod = kmod1*kmod2*kmod3*kmod4
     return(kmod)
@@ -36,10 +32,6 @@ def diametroMedio(d1,d2):
 def espessuraMedia(t1,t2):
     tm = (t1+t2)/2
     return(tm)
-    
-def Media(*args):
-    media=sum(args)/len(args)
-    return(media)
 
 def inerciaUnitaria(D,d):
     inercia = m.pi*(D**4-d**4)/64
