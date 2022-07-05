@@ -1,14 +1,14 @@
 from services.coeficientesRead import jsonRead 
 
-coeficientes = "C:\Users\ian10\Documents\dimensionamento-estrutura-bambu\entites\tabelaCoeficientes.json"
-
+coeficientes = "database/tabelaCoeficientes.json"
 tabelaCoeficientes = jsonRead(coeficientes)
 tabelaCoeficientesFisico = tabelaCoeficientes["rc"]
 
 class PropriedadesFisicas():
-    def __init__(self,id:int,resistencia_compressao:float) -> None:
+    def __init__(self,id:int,resistencia_compressao:float,unidade:str) -> None:
         self.fco = resistencia_compressao
         self.id = id
+        self.un = unidade
         
     def __repr__(self) -> dict:
         return({"Material":self.id,"fco":self.fco})

@@ -36,11 +36,11 @@ class VerificacoesGeometricas():
         else:
             return(f"A esbeltez está fora do limite permitido: {esbeltez}>150")
 
-    def DefinicaoPilarEsbeltez(self, esbeltez):
+    def ClassificacaoPilar(self, esbeltez):
         if(esbeltez<=30):
             return({"Pilar curto":1})
         elif(30<=esbeltez<=70):
             return({"Pilar médio":2})
         elif(70<=esbeltez<=150):
             return({"Pilar esbelto":3})
-    
+

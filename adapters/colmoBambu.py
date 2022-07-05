@@ -1,14 +1,16 @@
 from re import T
 from statistics import median
 from entites.propriedadesGeometricas import Geometria
+from entites.propriedadesFisicas import *
 from math import pi,pow,sqrt
 
 class colmoDeBambu():
-    def __init__(self,id:int,geometria1:Geometria,geometria2:Geometria,comprimento:float) -> None:
+    def __init__(self,id:int,geometria1:Geometria,geometria2:Geometria,comprimento:float,propfisica:PropriedadesFisicas) -> None:
         self.id = id
         self.e1 = geometria1
         self.e2 = geometria2
         self.L = comprimento
+        self.fcok = propfisica.fco
     
     def __repr__(self) -> str:
         pass
@@ -51,6 +53,7 @@ class colmoDeBambu():
     def RaioDeGiracao(self) -> float:
         i = sqrt(self.MomentoDeInercia()/self.Area())
         return(i)
+    
     def Esbeltez(self) -> float:
         e = self.L/self.RaioDeGiracao()
         return(e)
