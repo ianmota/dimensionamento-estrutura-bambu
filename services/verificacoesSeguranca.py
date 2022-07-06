@@ -1,10 +1,10 @@
 from adapters.colmoBambu import *
-from adapters.dimensionamentoBambu import *
+from adapters.consideracoesCalculo import *
 from entites.carregamento import *
 coeficientes = jsonRead("database/tabelaCoeficientes.json")
 
 class VerificacoesSeguranca():
-    def __init__(self,kmod:Carregamento,fcok:colmoDeBambu,tensao:DimensionamentoSimples) -> None:
+    def __init__(self,kmod:Carregamento,fcok:colmoDeBambu,tensao:ConsideracoesDeCalculo) -> None:
         self.kmod = kmod.kmod()
         self.fcok = fcok.fcok
         self.tensaoPilarCurto = tensao.PilarCurto()

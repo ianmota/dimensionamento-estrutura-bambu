@@ -11,6 +11,7 @@ class colmoDeBambu():
         self.e2 = geometria2
         self.L = comprimento
         self.fcok = propfisica.fco
+        self.eb = propfisica.elasticidadeCompressaoParalela()
     
     def __repr__(self) -> str:
         pass
