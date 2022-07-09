@@ -29,5 +29,10 @@ print(f"e: {colmo1.Esbeltez()}")
 print(f"t: {colmo1.Espessura()}")
 
 #resultados do dimensionamento
-print(f"Tensão normal: {dimensionamento1.TensaoNormal()}")
+print(f"Tensão normal: {dimensionamento1.FlexaoNormal()}")
 print(f"kmod: {carregamento1.kmod()}")
+
+verificacao1 = VerificacoesGeometricas(0,colmo1)
+print(verificacao1.ComprimentoMax())
+print(verificacao1.ConicidadeMax())
+print(verificacao1.EsbeltezMax())

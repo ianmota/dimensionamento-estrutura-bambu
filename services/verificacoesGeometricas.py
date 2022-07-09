@@ -1,46 +1,57 @@
+from adapters.colmoBambu import *
+
 class VerificacoesGeometricas():
-    def __init__(self,id:int) -> None:
+    def __init__(self,id:int,bambu:colmoDeBambu) -> None:
+        """Verifica as condições da geometria do colmo de bambu seguindo as prescrições
+        da NBR 16828-1
+        Args:
+            id (int): 
+            bambu (colmoDeBambu):
+        """
         self.id = id
+        self.bambu = bambu
     
     def __str__(self) -> str:
-        pass
+        c = self.ComprimentoMax().values()
+        co = self.ConicidadeMax().values()
+        e = self.EsbeltezMax().values()
+        return(f"(Prismático({c}),Conicidade({co}),Esbeltez({e}))")
     
-    def __repr__(self) -> str:
-        pass
+    def __repr__(self) -> dict:
+        c = self.ComprimentoMax().values()
+        co = self.ConicidadeMax().values()
+        e = self.EsbeltezMax().values()
+        return({"verificacao geometrica":[c,co,e]})
     
-    def BarraPrismatica(self,D:float,L:float)->bool:
-        """Verifica se o colmo com as dimensões D e L pode ser considerado como prismático
-
-        Args:
-        D (float): diâmetro
-        L (float): comprimento
-
+    def ComprimentoMax(self)->dict:
+        """Verifica se o colmo em questão pode ser usado como elemento esturtural L<65D
         Returns:
-        bool: pode ser / não pode ser
+        {"prismatica":bool}
         """
-        if(L <= 65*D):
-            return(f"A barra pode ser tratada como prismática: {L} < {65*D} ")
+        if(self.bambu.L <= 65*self.bambu.DiametroExterno()):
+            return({"prismatica":True})
         
         else:
-            return(f"A barra não pode ser tratada como prismática: {65*D} > {L}")
+            return({"prismatica":False})
 
-    def Conicidade(self,conicidade:float):
-        if(conicidade<=1):
-            return(f"A barra pode ser usada como elemento estrutural, conicidade:{conicidade} < 1 ")
+    def ConicidadeMax(self)->dict:
+        """Verifica a conicidade do elemento, para uso estrutural deve ter conicidade < 1%
+        Returns:
+        {"conicidade":bool}
+        """
+        if(self.bambu.Conicidade() <=1):
+            return({"conicidade":True})
         else:
-            return(f"A barra não pode ser usada como elemento estrutural, conicidade:{conicidade} > 1 ")
+            return({"conicidade":False})
     
-    def EsbeltezMaxima(self,esbeltez:float):
-        if(esbeltez<= 150):
-            return(f"A esbeltez está dentro do limite permitido: {esbeltez}<=150")
+    def EsbeltezMax(self)->dict:
+        """Verifica se a esbeltez está dentro do limite <150
+        returns:
+        {"esbeltez":bool}
+        """
+        if(self.bambu.Esbeltez() <= 150):
+            return({"esbeltez":True})
         else:
-            return(f"A esbeltez está fora do limite permitido: {esbeltez}>150")
+            return({"esbeltez":False})
 
-    def ClassificacaoPilar(self, esbeltez):
-        if(esbeltez<=30):
-            return({"Pilar curto":1})
-        elif(30<=esbeltez<=70):
-            return({"Pilar médio":2})
-        elif(70<=esbeltez<=150):
-            return({"Pilar esbelto":3})
 

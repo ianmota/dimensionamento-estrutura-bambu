@@ -45,7 +45,7 @@ class ConsideracoesDeCalculo():
         return(ei)
     
     def ExcentricidadeDeFluencia(self):
-        eu = max([self.ExcentricidadeAcidental(),self.ExcentricidadeInicial])
+        eu = max([self.ExcentricidadeAcidental(),self.ExcentricidadeInicial()])
         a = 0.8*(self.ngk + 0.9*self.nqk)/(self.ForcaEuler()-(self.ngk + 0.9*self.nqk))
         return(eu*(2.718**a -1))
         
@@ -54,7 +54,7 @@ class ConsideracoesDeCalculo():
             ec = self.ExcentricidadeDeFluencia()
         else:
             ec = 0
-        return(self.ExcentricidadeAcidental+self.ExcentricidadeInicial + ec)
+        return(self.ExcentricidadeAcidental()+self.ExcentricidadeInicial() + ec)
     
     def ResistenciaDeCalculo(self):
         fcod = self.kmod*self.fcok/self.ym
