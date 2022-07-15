@@ -1,38 +1,28 @@
-from adapters.colmoBambu import *
-from services.verificacoesGeometricas import * 
-from adapters.consideracoesCalculo import * 
-from services.verificacoesSeguranca import *
+from adapters.dimensionamentoPilar import *
+from services.verificacoesGeometricas import VerificacoesGeometricas
+from services.verificacoesSeguranca import VerificacoesSeguranca
 
-#definição das extremidades
-unit = "cm"
-extremidade1 = Geometria(0,12,15,2,3,unit)
-extremidade2 = Geometria(1,11,14,3,4,unit)
 
-#propriedade física
-fisica1 = PropriedadesFisicas(1,50,"Mpa")
+extremidade1 = Geometria(0,12,15,2,3,"cm")
+extremidade2 = Geometria(1,11,14,3,4,"cm")
 
-#definição do colmo
-colmo1 = colmoDeBambu(1,extremidade1,extremidade2,150,fisica1)
+p_fisica = PropriedadesFisicas(0,50,"MPa")
 
-#definição do carregamento
-carregamento1 = Carregamento(0,150,"permanente","ur<75","N",50,"fc0k")
+colmo = colmoDeBambu(0,extremidade1,extremidade2,150,p_fisica)
 
-dimensionamento1 = ConsideracoesDeCalculo(carregamento1,colmo1)
+resistencia = Resistencia(0,colmo,"fc0k","ur<75")
 
-#resultados do colmo
-print(f"conicidade: {colmo1.Conicidade()}")
-print(f"D: {colmo1.DiametroExterno()}")
-print(f"d: {colmo1.DiametroInterno()}")
-print(f"A: {colmo1.Area()}")
-print(f"I: {colmo1.MomentoDeInercia()}")
-print(f"e: {colmo1.Esbeltez()}")
-print(f"t: {colmo1.Espessura()}")
+carregamento = Carregamento(0,100,"KN")
 
-#resultados do dimensionamento
-print(f"Tensão normal: {dimensionamento1.FlexaoNormal()}")
-print(f"kmod: {carregamento1.kmod()}")
+tensao = Tensoes(carregamento,resistencia)
 
-verificacao1 = VerificacoesGeometricas(0,colmo1)
-print(verificacao1.ComprimentoMax())
-print(verificacao1.ConicidadeMax())
-print(verificacao1.EsbeltezMax())
+dimensionamento = Dimensionamento(tensao)
+
+print(dimensionamento)
+print(f"{resistencia.fd()} {resistencia.un_resistencia()}")
+
+vg = VerificacoesGeometricas(dimensionamento.tensao.resistencia_bambu.bambu) 
+vs = VerificacoesSeguranca(tensao)
+print(vg)
+print(vs.fcd())
+

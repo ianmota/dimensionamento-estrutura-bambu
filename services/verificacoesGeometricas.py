@@ -1,14 +1,13 @@
 from adapters.colmoBambu import *
 
 class VerificacoesGeometricas():
-    def __init__(self,id:int,bambu:colmoDeBambu) -> None:
+    def __init__(self,bambu:colmoDeBambu) -> None:
         """Verifica as condições da geometria do colmo de bambu seguindo as prescrições
         da NBR 16828-1
         Args:
             id (int): 
             bambu (colmoDeBambu):
         """
-        self.id = id
         self.bambu = bambu
     
     def __str__(self) -> str:

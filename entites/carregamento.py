@@ -1,31 +1,31 @@
-from services.coeficientesRead import *
-coeficientes = jsonRead("database/tabelaCoeficientes.json")
-
 class Carregamento():
-    def __init__(self,id:int,nd:float,tipo_carga:str,ur:str,unidade:str,md:float,tipo_resistencia:str) -> None:
+    def __init__(self,id:int,nd:float,unidade:str,m1d:float=0,ng:float=0,nq:float=0) -> None:
+        """insere os dados de um determinado carregamento
+        Args:
+            id (int)
+            nd (float)
+            unidade (str)
+            m1d (float, optional)
+            ng (float, optional)
+            nq (float, optional)
+        """
         self.id = id
-        self.carga = nd
-        self.tipo_carga = tipo_carga
-        self.ur = ur
+        self.nd = nd
+        self.carga_permanente = ng
+        self.carga_acidental = nq
         self.unidade = unidade
-        self.md = md
-        self.resistencia = tipo_resistencia
+        self.m1d = m1d
+
         
     def __str__(self) -> str:
-        pass
+        return(f"C{self.id}({self.nd} {self.unidade},{self.carga_permanente} {self.unidade},{self.carga_acidental} {self.unidade},{self.m1d} {self.unidade}(medida)) ")
     
     def __repr__(self) -> str:
-        pass
+        return(f"C{self.id}({self.nd} {self.unidade},{self.carga_permanente} {self.unidade},{self.carga_acidental} {self.unidade},{self.m1d} {self.unidade}(medida)) ")
+
+
     
-    def kmod(self):
-        kmod1 = coeficientes["kmod1"][self.tipo_carga]
-        kmod2 = coeficientes["kmod2"][self.ur]
-        kmod3 = coeficientes["kmod3"]
-        return(kmod1*kmod2*kmod3)
-    
-    def GamaM(self):
-        ym = coeficientes["ym"][self.resistencia]
-        return(ym)
+
     
     
         

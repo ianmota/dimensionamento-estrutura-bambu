@@ -2,6 +2,8 @@ from statistics import median
 
 class Geometria():
     def __init__(self,id:int,d1:float,d2:float,t1:float,t2:float,unidade:str) -> None:
+        """Defini as dimensões da geometria de uma extremidade do colmo de bambu
+        """
         self.id = id
         self.diametroMenor = d1
         self.diametroMaior = d2
@@ -10,24 +12,23 @@ class Geometria():
         self.un = unidade
         
     def __repr__(self) -> dict:
-        pass
+        return(f"G{self.id}({self.diametroMedio()},{self.espessuraMedia()}) {self.un}")
     
     def __str__(self) -> str:
-        pass
+        return(f"G{self.id}({self.diametroMedio()},{self.espessuraMedia()}) {self.un}")
     
     def diametroMedio(self) -> float:
         """calcula o diametro medio da extremidade
         Returns:
-            float: diâmetro médio
+            diâmetro médio(float) 
         """
         dM = median([self.diametroMenor,self.diametroMenor])
         return(dM)
     
     def espessuraMedia(self) -> float:
         """calcula a espessura media da extremidade
-
         Returns:
-            float: espessura média
+            espessura média(float) 
         """
         eM = median([self.espessuraMenor,self.espessuraMaior])
         return(eM)
