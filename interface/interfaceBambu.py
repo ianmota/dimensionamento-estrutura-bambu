@@ -56,7 +56,18 @@ class Application(Dimensionamento,VerificacoesGeometricas,VerificacoesSeguranca)
     
     def ReopenRoot2(self):
         self.root2.deiconify()
-        self.root3.destroy()
+        try:
+            self.root3.destroy()
+        except:
+            pass
+        try:
+            self.rootequacoes.destroy()
+        except:
+            pass
+        try:
+            self.roothelp.destroy()
+        except:
+            pass
         
     def OpenRoot2(self):
         self.root2 = tk.Toplevel()
@@ -170,10 +181,16 @@ class Application(Dimensionamento,VerificacoesGeometricas,VerificacoesSeguranca)
     
     def ButtonsJanela02(self):
         
-        self.LIMPAR = tk.Button(self.root2,command=self.CleanEntrys, fg="white", bg="#05677F",text='LIMPAR CAMPO ', width=15, height=1)
+        self.LIMPAR = tk.Button(self.root2,command=self.CleanEntrys, fg="white", bg="#05677F",text='Limpar Campos ', width=15, height=1)
         self.LIMPAR.place(relx=0.738, rely=0.099)
 
-        self.CALCULAR = tk.Button(self.root2, bg='#05677F', fg='white', font=('Ivy 10 bold'),justify='center', command=lambda:[self.HideRoot02(), self.OpenRoot03()], text='CALCULAR',width=12, height=1, padx=2)
+        self.botao_HELP = tk.Button(self.root2,command=self.OpenRootHelp, fg="white", bg="#05677F",text='Help ', width=15, height=1)
+        self.botao_HELP.place(relx=0.738, rely=0.155)
+
+        self.botao_EQUACOES = tk.Button(self.root2,command=self.OpenRootEquacoes, fg="white", bg="#05677F",text='Equações ', width=15, height=1)
+        self.botao_EQUACOES.place(relx=0.738, rely=0.21)
+
+        self.CALCULAR = tk.Button(self.root2, bg='#05677F', fg='white', font=('Ivy 10 bold'),justify='center', command=lambda:[self.VerificarCarregamentos()], text='CALCULAR',width=12, height=1, padx=2)
         self.CALCULAR.place(relx=0.05, rely=0.925)
 
     def HideRoot(self):
@@ -189,9 +206,23 @@ class Application(Dimensionamento,VerificacoesGeometricas,VerificacoesSeguranca)
         self.root3.geometry('600x570')
         self.root3.resizable(False, False)
         self.root3.protocol('WM_DELETE_WINDOW', self.ReopenRoot2)
-        self.Calcular()
-        self.VerificarCarregamentos()
         self.LabelsJanela03()
+
+    def OpenRootHelp(self):
+        self.roothelp = tk.Toplevel()
+        self.roothelp.title('Resultados')
+        self.roothelp.configure(background='light blue')
+        self.roothelp.geometry('600x570')
+        self.roothelp.resizable(False, False)
+        self.roothelp.protocol('WM_DELETE_WINDOW', self.ReopenRoot2)
+
+    def OpenRootEquacoes(self):
+        self.rootequacoes = tk.Toplevel()
+        self.rootequacoes.title('Resultados')
+        self.rootequacoes.configure(background='light blue')
+        self.rootequacoes.geometry('600x570')
+        self.rootequacoes.resizable(False, False)
+        self.rootequacoes.protocol('WM_DELETE_WINDOW', self.ReopenRoot2)
         
     def CleanEntrys(self):
         self.DMAIOR.delete(0, tk.END)
@@ -220,7 +251,7 @@ class Application(Dimensionamento,VerificacoesGeometricas,VerificacoesSeguranca)
         self.d1 = Dimensionamento(self.t1)
         self.vg = VerificacoesGeometricas(self.c1)
         self.vs = VerificacoesSeguranca(self.d1)
-    
+        
     def LabelsJanela03(self):
         self.LabelConicidade()
         self.LabelPrismatico()
@@ -262,8 +293,9 @@ class Application(Dimensionamento,VerificacoesGeometricas,VerificacoesSeguranca)
         label_tensao_resultado.place(relx=0.05, rely=0.4)
         
     def ResultadoConicidade(self):
+        
+        conicidade = float("{:.2f}".format(self.c1.Conicidade()))
         if(self.vg.ConicidadeMax()['conicidade']):
-            conicidade = float("{:.2f}".format(self.c1.Conicidade()))
             return(f"OK! {conicidade}% < 1%")
         else:
             return(f"ERRO! {conicidade}% > 1%")
@@ -309,9 +341,25 @@ class Application(Dimensionamento,VerificacoesGeometricas,VerificacoesSeguranca)
                        \n Comprimento: {self.L} > Comprimento máximo: {65*self.c1.DiametroExterno()}")
 
     def VerificarCarregamentos(self):
+        try:
+            self.Calcular()
+        except ValueError:
+            messagebox.showerror("ERRO!","Existe algum campo de entrada vazio, favor, atribuir zero para os parâmetros não utilizados")
+            pass
+        
+        ng = float(self.CARREGAMENTO_PERMANENTE.get())
+        nq = float(self.CARREGAMENTO_ACIDENTAL.get())
+        
         if(self.c1.Esbeltez() > 70):
-            ng = self.CARREGAMENTO_PERMANENTE.get()
-            nq = self.CARREGAMENTO_ACIDENTAL.get()
-            if( not ng or not nq):
-                messagebox.askquestion("Omissão de carregamentos","Seu colmo é esbelto, é necessário inserir a carga permanente e acidental (por fora)","OK")
+            
+            if not (ng or nq):
+                messagebox.showerror("Carregamentos","Seu colmo é esbelto, é necessário inserir a carga permanente e acidental (por fora)")
+            else:
+                self.HideRoot02()
+                self.OpenRoot03()
+                
+        else:
+            
+            self.HideRoot02()
+            self.OpenRoot03()
             

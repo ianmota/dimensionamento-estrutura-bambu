@@ -50,7 +50,7 @@ class Tensoes():
         """calcula a excentricidade de fluencia no colmo
         """
         eu = max([self.ExcentricidadeAcidental(),self.ExcentricidadeInicial()])
-        a = 0.8*(self.carregamento.carga_permanente + 0.9*self.carregamento.carga_acidental)/(self.ForcaEuler()-(self.carregamento.carga_permanente + 0.9*self.carregamento.carga_acidental))
+        a = 0.8*(self.carregamento.carga_permanente + 0.9*self.carregamento.carga_acidental)/(self.resistencia_bambu.ForcaEuler()-(self.carregamento.carga_permanente + 0.9*self.carregamento.carga_acidental))
         return(eu*(2.718**a -1))
         
     def Excentricidade(self)->float:
