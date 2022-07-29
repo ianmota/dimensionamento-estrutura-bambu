@@ -13,7 +13,7 @@ class Dimensionamento():
     def classificacaoPilar(self):
         if(self.tensao.resistencia_bambu.bambu.Esbeltez()<=30):
             return(self.pilarCurto())
-        if(30<self.tensao.resistencia_bambu.bambu.Esbeltez()):
+        if(30<self.tensao.resistencia_bambu.bambu.Esbeltez()<=150):
             return(self.pilarMedio())
             
     def pilarCurto(self):

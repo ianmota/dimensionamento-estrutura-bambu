@@ -23,7 +23,7 @@ class Resistencia():
     def kmod(self)->float:
         """Calcula o coeficiente de majoração
         """
-        kmod1 = tabelaCoeficientes["kmod1"]["permanente"]
+        kmod1 = tabelaCoeficientes["kmod1"]["Permanente"]
         kmod2 = tabelaCoeficientes["kmod2"][self.ur]
         kmod3 = tabelaCoeficientes["kmod3"]
         return(kmod1*kmod2*kmod3)

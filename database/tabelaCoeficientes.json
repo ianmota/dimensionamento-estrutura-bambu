@@ -1,10 +1,10 @@
 {
     "kmod1":{
-        "permanente":0.7,
-        "longa duracao":0.8,
-        "média duração":0.9,
-        "curta duração":1.0,
-        "instantânea":1.1
+        "Permanente":0.7,
+        "Longa duração (mais de seis meses)":0.8,
+        "Média duração (uma semana a seis meses)":0.9,
+        "Curta duração (até uma semana)":1.0,
+        "Instantânea":1.1
     },
 
     "kmod2":{

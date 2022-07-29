@@ -11,6 +11,7 @@ class VerificacoesSeguranca():
             bambu (colmoDeBambu)
         """
         self.dimensionamento = dimensionamento
+        self.resistenciaBambu = self.dimensionamento.tensao.resistencia_bambu
     def __str__(self) -> str:
         return(f"segurança({self.Seguranca()})")
     
@@ -22,8 +23,8 @@ class VerificacoesSeguranca():
         Returns:
             fcd(float):
         """
-        fcd1 = self.dimensionamento.tensao.resistencia_bambu.fd()
-        fcd2 = min([fcd1,self.dimensionamento.tensao.resistencia_bambu.ForcaEuler()/self.tensao.resistencia_bambu.bambu.Area()])
+        fcd1 = self.resistenciaBambu.fd()
+        fcd2 = min([fcd1,self.resistenciaBambu.ForcaEuler()/self.resistenciaBambu.bambu.Area()])
         
         if(self.dimensionamento.tensao.resistencia_bambu.bambu.Esbeltez()<=30):
             return(fcd1)
@@ -35,14 +36,7 @@ class VerificacoesSeguranca():
         Returns:
             dict(bool)
         """
-        if(self.dimensionamento.tensao.resistencia_bambu.bambu.Esbeltez()<=30):
-            
-            if(self.dimensionamento.classificacaoPilar()<=self.fcd()):
-                return({"segurança":True})
-            else:
-                return({"segurança":False})
-        elif(30<self.dimensionamento.tensao.resistencia_bambu.bambu.Esbeltez()<=150):
-            if(self.dimensionamento.classificacaoPilar()<=self.fcd()):
-                return({"segurança":True})
-            else:
-                return({"segurança":False})
+        if(self.dimensionamento.classificacaoPilar()<=self.fcd()):
+            return({"segurança":True})
+        else:
+            return({"segurança":False})
